@@ -1,0 +1,50 @@
+version: '3'
+
+volumes:
+  data:
+
+networks:
+  net:
+    driver: bridge
+
+services:
+
+  guacamole_db:
+    container_name: guacamole_db
+    image: mariadb/server:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'MariaDBRootPSW'
+      MYSQL_DATABASE: 'guacamole_db'
+      MYSQL_USER: 'guacamole_user'
+      MYSQL_PASSWORD: 'MariaDBUserPSW'
+    volumes:
+      - 'data:/var/lib/mysql'
+    networks:
+      - net
+
+  guacamole_guacd:
+    container_name: guacamole_guacd
+    image: guacamole/guacd
+    restart: unless-stopped
+    networks:
+      - net
+
+  guacamole_guacamole:
+    container_name: guacamole_guacamole
+    image: 'guacamole/guacamole:latest'
+    restart: unless-stopped
+    networks:
+      - net
+    ports:
+      - '8080:8080'
+    environment:
+      GUACD_HOSTNAME: "guacamole_guacd"
+      MYSQL_HOSTNAME: "guacamole_db"
+      MYSQL_DATABASE: "guacamole_db"
+      MYSQL_USER: "guacamole_user"
+      MYSQL_PASSWORD: "MariaDBUserPSW"
+      TOTP_ENABLED: "true"
+    depends_on:
+      - guacamole_db
+      - guacamole_guacd

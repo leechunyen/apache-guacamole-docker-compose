@@ -4,13 +4,11 @@
   for more infomation please visit [official website](https://guacamole.apache.org)
 
 ## Prerequisites
-
 - **Docker:** Ensure Docker is installed on your system. If not, install it from the [official Docker website](https://docs.docker.com/get-docker/).
 
 ## Installation
 
   **Clone the repository and run**
-
   ```sh
   git clone https://github.com/leechunyen/apache-guacamole-docker-compose.git
   cd apache-guacamole-docker-compose/src

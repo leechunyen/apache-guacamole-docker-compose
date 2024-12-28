@@ -13,13 +13,13 @@ sudo docker compose up -d
 sleep 5
 
 # restore initdb.sql in to db
-sudo docker exec -i guacamole_db sh -c 'mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS guacamole_db"'
-sudo docker exec -i guacamole_db sh -c 'exec mysql -u root --password=root guacamole_db' < initdb.sql
+sudo docker exec -i guacamole_db sh -c 'mysql -u root --password=DBRootPSW -e "CREATE DATABASE IF NOT EXISTS guacamole_db"'
+sudo docker exec -i guacamole_db sh -c 'exec mysql -u root --password=DBRootPSW guacamole_db' < initdb.sql
 
 # wait
 sleep 5
 
 # display message
 echo '===================================================='
-echo 'open browser goto http://{ip}:8080/guacamole'
+echo "open browser goto http://$(hostname -I | awk '{print $1}'):8080/guacamole"
 echo 'default username and default password is guacadmin'

@@ -11,13 +11,13 @@ services:
 
   guacamole_db:
     container_name: guacamole_db
-    image: mariadb/server:latest
+    image: mysql:latest
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 'MariaDBRootPSW'
+      MYSQL_ROOT_PASSWORD: 'DBRootPSW'
       MYSQL_DATABASE: 'guacamole_db'
       MYSQL_USER: 'guacamole_user'
-      MYSQL_PASSWORD: 'MariaDBUserPSW'
+      MYSQL_PASSWORD: 'DBUserPSW'
     volumes:
       - 'data:/var/lib/mysql'
     networks:
@@ -43,7 +43,7 @@ services:
       MYSQL_HOSTNAME: "guacamole_db"
       MYSQL_DATABASE: "guacamole_db"
       MYSQL_USER: "guacamole_user"
-      MYSQL_PASSWORD: "MariaDBUserPSW"
+      MYSQL_PASSWORD: "DBUserPSW"
       TOTP_ENABLED: "true"
     depends_on:
       - guacamole_db
